@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -69,8 +69,15 @@ class ViewController: UIViewController {
     func petCat(direction: String) {
         if (direction == "Up") {
             print(PetDirection.Up)
+            UIView.animateWithDuration(0.5, animations: {
+                self.catSkin.image = UIImage(named: "goodfurRev.png")!
+            })
+            
         } else if (direction == "Down") {
             print(PetDirection.Down)
+            UIView.animateWithDuration(0.5, animations: {
+                self.catSkin.image = UIImage(named: "goodfur.png")!
+            })
         }
         let path = NSBundle.mainBundle().pathForResource("Cat-meow-sound-2.mp3", ofType:nil)!
         let url = NSURL(fileURLWithPath: path)

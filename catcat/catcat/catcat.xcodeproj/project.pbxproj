@@ -19,6 +19,7 @@
 		9209AB241CF0009000F1240F /* Cat-meow-sound-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB1F1CF0009000F1240F /* Cat-meow-sound-2.mp3 */; };
 		9209AB251CF0009000F1240F /* Cat-meow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB201CF0009000F1240F /* Cat-meow.mp3 */; };
 		9209AB271CF0039B00F1240F /* goodfur.png in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB261CF0039B00F1240F /* goodfur.png */; };
+		9209AB291CF00E4C00F1240F /* goodfurRev.png in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB281CF00E4C00F1240F /* goodfurRev.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		9209AB1F1CF0009000F1240F /* Cat-meow-sound-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow-sound-2.mp3"; sourceTree = "<group>"; };
 		9209AB201CF0009000F1240F /* Cat-meow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow.mp3"; sourceTree = "<group>"; };
 		9209AB261CF0039B00F1240F /* goodfur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodfur.png; path = Assets.xcassets/goodfur.png; sourceTree = "<group>"; };
+		9209AB281CF00E4C00F1240F /* goodfurRev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodfurRev.png; path = Assets.xcassets/goodfurRev.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			children = (
 				9209AB071CEFF7DE00F1240F /* AppDelegate.swift */,
 				9209AB091CEFF7DE00F1240F /* ViewController.swift */,
+				9209AB281CF00E4C00F1240F /* goodfurRev.png */,
 				9209AB261CF0039B00F1240F /* goodfur.png */,
 				9209AB1C1CF0009000F1240F /* Cat-hissing-sound-2.mp3 */,
 				9209AB1D1CF0009000F1240F /* Cat-meow2.mp3 */,
@@ -143,6 +146,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9209AB291CF00E4C00F1240F /* goodfurRev.png in Resources */,
 				9209AB231CF0009000F1240F /* Cat-meow-short.mp3 in Resources */,
 				9209AB211CF0009000F1240F /* Cat-hissing-sound-2.mp3 in Resources */,
 				9209AB151CEFF7DE00F1240F /* LaunchScreen.storyboard in Resources */,
