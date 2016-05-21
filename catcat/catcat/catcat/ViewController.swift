@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
-    @IBOutlet var shakeLabel: UILabel!
+    var shakenSoundEffect = AVAudioPlayer()
+    
+    @IBOutlet var catSkin: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,7 +32,20 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
-            self.shakeLabel.text = "Shaken, not stirred"
+            print("shaken")
+            let path = NSBundle.mainBundle().pathForResource("Cat-hissing-sound-2.mp3", ofType:nil)!
+            let url = NSURL(fileURLWithPath: path)
+            do {
+                let sound = try AVAudioPlayer(contentsOfURL: url)
+                shakenSoundEffect = sound
+                sound.play()
+            } catch {
+                // couldn't load file :(
+            }
+//            if shakenSoundEffect != nil {
+//                shakenSoundEffect.stop()
+//                shakenSoundEffect = nil
+//            }
         }
     }
 
