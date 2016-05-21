@@ -18,6 +18,7 @@
 		9209AB231CF0009000F1240F /* Cat-meow-short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB1E1CF0009000F1240F /* Cat-meow-short.mp3 */; };
 		9209AB241CF0009000F1240F /* Cat-meow-sound-2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB1F1CF0009000F1240F /* Cat-meow-sound-2.mp3 */; };
 		9209AB251CF0009000F1240F /* Cat-meow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB201CF0009000F1240F /* Cat-meow.mp3 */; };
+		9209AB271CF0039B00F1240F /* goodfur.png in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB261CF0039B00F1240F /* goodfur.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		9209AB1E1CF0009000F1240F /* Cat-meow-short.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow-short.mp3"; sourceTree = "<group>"; };
 		9209AB1F1CF0009000F1240F /* Cat-meow-sound-2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow-sound-2.mp3"; sourceTree = "<group>"; };
 		9209AB201CF0009000F1240F /* Cat-meow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow.mp3"; sourceTree = "<group>"; };
+		9209AB261CF0039B00F1240F /* goodfur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = goodfur.png; path = Assets.xcassets/goodfur.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 			children = (
 				9209AB071CEFF7DE00F1240F /* AppDelegate.swift */,
 				9209AB091CEFF7DE00F1240F /* ViewController.swift */,
+				9209AB261CF0039B00F1240F /* goodfur.png */,
 				9209AB1C1CF0009000F1240F /* Cat-hissing-sound-2.mp3 */,
 				9209AB1D1CF0009000F1240F /* Cat-meow2.mp3 */,
 				9209AB1E1CF0009000F1240F /* Cat-meow-short.mp3 */,
@@ -147,6 +150,7 @@
 				9209AB121CEFF7DE00F1240F /* Assets.xcassets in Resources */,
 				9209AB0D1CEFF7DE00F1240F /* Main.storyboard in Resources */,
 				9209AB241CF0009000F1240F /* Cat-meow-sound-2.mp3 in Resources */,
+				9209AB271CF0039B00F1240F /* goodfur.png in Resources */,
 				9209AB251CF0009000F1240F /* Cat-meow.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

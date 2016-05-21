@@ -17,19 +17,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-jE-j1x">
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="goodfur.png" translatesAutoresizingMaskIntoConstraints="NO" id="JTI-jE-j1x">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="jHP-YR-47w" appends="YES" id="FS1-hy-3xI"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="0rj-yy-2tO" appends="YES" id="nj9-wz-Mhm"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="catSkin" destination="JTI-jE-j1x" id="dx4-GP-rvs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="0rj-yy-2tO">
+                    <connections>
+                        <action selector="petUp:" destination="BYZ-38-t0r" id="XAJ-fS-yYW"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="8MY-IX-gf0"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="jHP-YR-47w">
+                    <connections>
+                        <action selector="petDown:" destination="BYZ-38-t0r" id="UXn-xz-asZ"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="ll8-Uh-Sef"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="364"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="goodfur.png" width="1920" height="1080"/>
+    </resources>
 </document>
