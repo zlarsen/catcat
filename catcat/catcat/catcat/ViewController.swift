@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 enum PetDirection : Int {
     case Up = 1
@@ -17,10 +18,20 @@ enum PetDirection : Int {
     
 }
 
+var catSounds: [String: String] = ["mad": "CatScream.wav", "pet": "catpurr.wav", "feed": "cat_lapping_up_milk.mp3", "bathroom": "litterbox.wav", "feed2": " ", "pet2": "Cat-meow-short"]
+
 class ViewController: UIViewController {
 
     var shakenSoundEffect = AVAudioPlayer()
+    
+//    var catcat = [NSManagedObject]()
     var shakenCount = 0
+    var petCount = 0
+    var feedCount = 0
+    var bathroomCount = 0
+    
+    var furUp = false
+    
     
     @IBOutlet var catSkin: UIImageView!
     
@@ -28,13 +39,34 @@ class ViewController: UIViewController {
     @IBAction func petUp(sender: UISwipeGestureRecognizer) {
         petCat(String(PetDirection.Up))
     }
+    
     @IBAction func petDown(sender: UISwipeGestureRecognizer) {
         petCat(String(PetDirection.Down))
-        
     }
+    
+    @IBAction func oneTap(sender: AnyObject) {
+        tapRecognizer(1)
+    }
+    
+    @IBAction func twoTap(sender: AnyObject) {
+        tapRecognizer(2)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let aSelector : Selector = #selector(ViewController.oneTap(_:))
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        tapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGesture)
+        
+        let bSelector : Selector = #selector(ViewController.twoTap(_:))
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: bSelector)
+        doubleTapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(doubleTapGesture)
+        
+        tapGesture.requireGestureRecognizerToFail(doubleTapGesture)
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,47 +81,59 @@ class ViewController: UIViewController {
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             print("shaken")
-            let path = NSBundle.mainBundle().pathForResource("Cat-hissing-sound-2.mp3", ofType:nil)!
-            let url = NSURL(fileURLWithPath: path)
-            do {
-                let sound = try AVAudioPlayer(contentsOfURL: url)
-                shakenSoundEffect = sound
-                sound.play()
-                shakenCount += 1
-            } catch {
-                // couldn't load file :(
-            }
-//            if shakenSoundEffect != nil {
-//                shakenSoundEffect.stop()
-//                shakenSoundEffect = nil
-//            }
+            playSound(catSounds["mad"]!)
+            
+            shakenCount += 1
+        }
+    }
+    
+    func tapRecognizer(taps: Int){
+        if (taps == 1) {
+            // feed
+            print("one hop")
+            playSound(catSounds["feed"]!)
+            feedCount += 1
+    
+        }   else if (taps == 2) {
+            // bathroom
+            print("two hops this time")
+            playSound(catSounds["bathroom"]!)
+            bathroomCount += 1
         }
     }
     
     func petCat(direction: String) {
-        if (direction == "Up") {
+        if (direction == "Up" && !furUp) {
             print(PetDirection.Up)
-            UIView.animateWithDuration(0.5, animations: {
-                self.catSkin.image = UIImage(named: "goodfurRev.png")!
-            })
-            
-        } else if (direction == "Down") {
+            furUp = true
+            let toImage = UIImage(named:"goodfurRev.png")
+            UIView.transitionWithView(self.catSkin,
+                                      duration:0.5,
+                                      options: .TransitionCrossDissolve,
+                                      animations: { self.catSkin.image = toImage },
+                                      completion: nil)
+        } else if (direction == "Down" && furUp) {
             print(PetDirection.Down)
-            UIView.animateWithDuration(0.5, animations: {
-                self.catSkin.image = UIImage(named: "goodfur.png")!
-            })
-        }
-        let path = NSBundle.mainBundle().pathForResource("Cat-meow-sound-2.mp3", ofType:nil)!
+            furUp = false
+            let toImage = UIImage(named:"goodfur.png")
+            UIView.transitionWithView(self.catSkin,
+                                      duration:0.5,
+                                      options: .TransitionCrossDissolve,
+                                      animations: { self.catSkin.image = toImage },
+                                      completion: nil)        }
+        playSound(catSounds["pet"]!)
+    }
+
+    func playSound(soundName: String){
+        let path = NSBundle.mainBundle().pathForResource(soundName, ofType:nil)!
         let url = NSURL(fileURLWithPath: path)
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
             shakenSoundEffect = sound
             sound.play()
-            shakenCount += 1
         } catch {
-            // couldn't load file :(
+            print("Couldn't load \(soundName)")
         }
     }
-
 }
 
