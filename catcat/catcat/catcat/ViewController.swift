@@ -18,7 +18,7 @@ enum PetDirection : Int {
     
 }
 
-var catSounds: [String: String] = ["mad": "CatScream.wav", "pet": "catpurr.wav", "feed": "cat_lapping_up_milk.mp3", "bathroom": "litterbox.wav", "feed2": " ", "pet2": "Cat-meow-short"]
+var catSounds: [String: String] = ["mad": "CatScream.wav", "pet": "catpurr.wav", "feed": "milk.m4a", "bathroom": "litterbox.wav", "feed2": " ", "pet2": "Cat-meow-short"]
 
 class ViewController: UIViewController {
 
@@ -67,6 +67,11 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(doubleTapGesture)
         
         tapGesture.requireGestureRecognizerToFail(doubleTapGesture)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -133,6 +138,32 @@ class ViewController: UIViewController {
             sound.play()
         } catch {
             print("Couldn't load \(soundName)")
+        }
+    }
+    
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.Right:
+                
+                print("Swiped right")
+                
+                //change view controllers
+                
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                
+                let resultViewController = storyBoard.instantiateViewControllerWithIdentifier("achievements")
+                resultViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+                self.presentViewController(resultViewController, animated:true, completion:nil)
+                
+                
+                
+            default:
+                break
+            }
         }
     }
 }

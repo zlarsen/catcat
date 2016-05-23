@@ -25,6 +25,8 @@
 		9209AB2F1CF173F700F1240F /* CatScream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB2E1CF173F700F1240F /* CatScream.wav */; };
 		9209AB311CF174E700F1240F /* litterbox.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB301CF174E700F1240F /* litterbox.wav */; };
 		9209AB331CF174ED00F1240F /* cat_lapping_up_milk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB321CF174ED00F1240F /* cat_lapping_up_milk.mp3 */; };
+		9209AB351CF2581300F1240F /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9209AB341CF2581300F1240F /* AchievementsViewController.swift */; };
+		9209AB371CF265F200F1240F /* milk.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB361CF265F200F1240F /* milk.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		9209AB2E1CF173F700F1240F /* CatScream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CatScream.wav; sourceTree = "<group>"; };
 		9209AB301CF174E700F1240F /* litterbox.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = litterbox.wav; sourceTree = "<group>"; };
 		9209AB321CF174ED00F1240F /* cat_lapping_up_milk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cat_lapping_up_milk.mp3; sourceTree = "<group>"; };
+		9209AB341CF2581300F1240F /* AchievementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
+		9209AB361CF265F200F1240F /* milk.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = milk.m4a; path = catcat/milk.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 		9209AAFB1CEFF7DE00F1240F = {
 			isa = PBXGroup;
 			children = (
+				9209AB361CF265F200F1240F /* milk.m4a */,
 				9209AB061CEFF7DE00F1240F /* catcat */,
 				9209AB051CEFF7DE00F1240F /* Products */,
 			);
@@ -82,6 +87,7 @@
 			children = (
 				9209AB071CEFF7DE00F1240F /* AppDelegate.swift */,
 				9209AB091CEFF7DE00F1240F /* ViewController.swift */,
+				9209AB341CF2581300F1240F /* AchievementsViewController.swift */,
 				9209AB321CF174ED00F1240F /* cat_lapping_up_milk.mp3 */,
 				9209AB301CF174E700F1240F /* litterbox.wav */,
 				9209AB2E1CF173F700F1240F /* CatScream.wav */,
@@ -135,6 +141,7 @@
 				TargetAttributes = {
 					9209AB031CEFF7DE00F1240F = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = QDWGS94ZD6;
 					};
 				};
 			};
@@ -166,6 +173,7 @@
 				9209AB211CF0009000F1240F /* Cat-hissing-sound-2.mp3 in Resources */,
 				9209AB151CEFF7DE00F1240F /* LaunchScreen.storyboard in Resources */,
 				9209AB311CF174E700F1240F /* litterbox.wav in Resources */,
+				9209AB371CF265F200F1240F /* milk.m4a in Resources */,
 				9209AB221CF0009000F1240F /* Cat-meow2.mp3 in Resources */,
 				9209AB121CEFF7DE00F1240F /* Assets.xcassets in Resources */,
 				9209AB2C1CF1735D00F1240F /* catfight.wav in Resources */,
@@ -186,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9209AB351CF2581300F1240F /* AchievementsViewController.swift in Sources */,
 				9209AB101CEFF7DE00F1240F /* catcat.xcdatamodeld in Sources */,
 				9209AB0A1CEFF7DE00F1240F /* ViewController.swift in Sources */,
 				9209AB081CEFF7DE00F1240F /* AppDelegate.swift in Sources */,
@@ -303,10 +312,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = catcat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zachariahlarsen.catcat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -314,10 +326,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = catcat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zachariahlarsen.catcat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
