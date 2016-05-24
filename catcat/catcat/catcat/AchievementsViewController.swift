@@ -8,10 +8,24 @@
 
 import UIKit
 
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
+}
+
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var achievementNames: [String] = ["Shaken Not Stirred", "Don't shake me"]
-    var achievementValues: [String] = ["shake 1", "shake 10"]
+    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me"]
+    var achievementValues: [String] = ["", "shake 1", "shake 10"]
     
     @IBOutlet var achievementsTable: UITableView!
     
@@ -30,6 +44,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.achievementsTable.tableFooterView = UIView()
         
 //        setupAchievementsTable()
+        parseAchievementValues()
         
     }
     
@@ -83,11 +98,35 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(achievementsTable: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = achievementsTable.dequeueReusableCellWithIdentifier("cell",
         forIndexPath: indexPath)
-        let item = achievementNames[indexPath.row]
-        cell.textLabel?.text = item
-        cell.textLabel?.textAlignment = NSTextAlignment.Center
-        cell.textLabel?.textColor = UIColor.whiteColor()
-        print("row: \(indexPath.row), title: \(cell.textLabel!.text!)")
+        if (indexPath.row == 0) {
+            let item = achievementNames[indexPath.row]
+            cell.textLabel?.text = item
+            cell.textLabel?.textAlignment = NSTextAlignment.Center
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.textLabel?.textColor = UIColor(netHex:0x22A5D3)
+            cell.textLabel?.font = UIFont.boldSystemFontOfSize(20.0)
+        } else {
+            let item = "?"
+            cell.textLabel?.text = item
+            cell.textLabel?.textAlignment = NSTextAlignment.Center
+            cell.backgroundColor = UIColor.grayColor()
+            cell.textLabel?.textColor = UIColor.whiteColor()
+//            print("row: \(indexPath.row), title: \(cell.textLabel!.text!)")
+        }
+        if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
         return cell
+    }
+    
+    func parseAchievementValues() {
+        for value in achievementValues {
+            if (value == "") {
+                continue
+            }
+            let valueArr = value.characters.split{$0 == " "}.map(String.init)
+            print("\(valueArr[0])")
+            print("\(valueArr[1])")
+        }
     }
 }
