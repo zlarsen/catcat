@@ -27,6 +27,13 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me"]
     var achievementValues: [String] = ["", "shake 1", "shake 10"]
     
+    let counters = NSUserDefaults.standardUserDefaults()
+    var shakenCount : Int = 0
+    var petCount : Int = 0
+    var feedCount : Int = 0
+    var bathroomCount : Int = 0
+
+    
     @IBOutlet var achievementsTable: UITableView!
     
     override func viewDidLoad() {
@@ -45,6 +52,11 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         
 //        setupAchievementsTable()
         parseAchievementValues()
+        
+        shakenCount = initializeCounters("shakenCount")
+        petCount = initializeCounters("petCount")
+        bathroomCount = initializeCounters("bathroomCount")
+        feedCount = initializeCounters("feedCount")
         
     }
     
@@ -76,8 +88,9 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.presentViewController(resultViewController, animated:true, completion:nil)
     }
     
-    func setupAchievementsTable() {
+    func setupAchievementsTable(row: Int) {
         achievementsTable.beginUpdates()
+//        tableView(achievementsTable, cellForRowAtIndexPath: NSIndexPath)
         print("*******************2")
         achievementsTable.insertRowsAtIndexPaths([
             NSIndexPath(forRow: achievementNames.count-1, inSection: 0)
@@ -120,13 +133,44 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func parseAchievementValues() {
+        var count = 0
         for value in achievementValues {
+            count += 1
             if (value == "") {
                 continue
             }
             let valueArr = value.characters.split{$0 == " "}.map(String.init)
-            print("\(valueArr[0])")
-            print("\(valueArr[1])")
+            let action = valueArr[0]
+            let req = Int(valueArr[1])
+            if (action == "shake") {
+                if (req >= shakenCount) {
+                    print(achievementNames[count-1])
+                }
+            } else if (action == "pet") {
+                if (req >= petCount) {
+                    print(achievementNames[count-1])
+                }
+            } else if (action == "feed") {
+                if (req >= feedCount) {
+                    print(achievementNames[count-1])
+                }
+            } else if (action == "bathroom") {
+                if (req >= bathroomCount) {
+                    print(achievementNames[count-1])
+                }
+            }
         }
+        
+    }
+
+    func initializeCounters(name: String) -> Int {
+        let countVal = counters.integerForKey(name)
+        if (countVal == 0){
+            counters.setInteger(0, forKey: name)
+            print("\(name): \(countVal)")
+        } else {
+            print("\(name): \(countVal)")
+        }
+        return countVal
     }
 }
