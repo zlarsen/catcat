@@ -24,11 +24,11 @@ class ViewController: UIViewController {
 
     var shakenSoundEffect = AVAudioPlayer()
     
-//    var catcat = [NSManagedObject]()
-    var shakenCount = 0
-    var petCount = 0
-    var feedCount = 0
-    var bathroomCount = 0
+    var shakenCount : Int = 0
+    var petCount : Int = 0
+    var feedCount : Int = 0
+    var bathroomCount : Int = 0
+    let counters = NSUserDefaults.standardUserDefaults()
     
     var furUp = false
     
@@ -71,7 +71,12 @@ class ViewController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
-
+        
+        shakenCount = initializeCounters("shakenCount")
+        petCount = initializeCounters("petCount")
+        bathroomCount = initializeCounters("bathroomCount")
+        feedCount = initializeCounters("feedCount")
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,6 +94,7 @@ class ViewController: UIViewController {
             playSound(catSounds["mad"]!)
             
             shakenCount += 1
+            counters.setValue(shakenCount, forKey: "shakenCount")
         }
     }
     
@@ -98,12 +104,14 @@ class ViewController: UIViewController {
             print("one hop")
             playSound(catSounds["feed"]!)
             feedCount += 1
+            counters.setValue(feedCount, forKey: "feedCount")
     
         }   else if (taps == 2) {
             // bathroom
             print("two hops this time")
             playSound(catSounds["bathroom"]!)
             bathroomCount += 1
+            counters.setValue(bathroomCount, forKey: "bathroomCount")
         }
     }
     
@@ -127,6 +135,8 @@ class ViewController: UIViewController {
                                       animations: { self.catSkin.image = toImage },
                                       completion: nil)        }
         playSound(catSounds["pet"]!)
+        petCount += 1
+        counters.setValue(petCount, forKey: "petCount")
     }
 
     func playSound(soundName: String){
@@ -165,6 +175,17 @@ class ViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    func initializeCounters(name: String) -> Int {
+        let countVal = counters.integerForKey(name)
+        if (countVal == 0){
+            counters.setInteger(0, forKey: name)
+            print("\(name): \(countVal)")
+        } else {
+            print("\(name): \(countVal)")
+        }
+        return countVal
     }
 }
 
