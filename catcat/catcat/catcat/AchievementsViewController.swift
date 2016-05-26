@@ -24,8 +24,8 @@ extension UIColor {
 
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me"]
-    var achievementValues: [String] = ["", "shake 1", "shake 10"]
+    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me", "Internal Slushie", "Dead Cat", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Stinky", "Smelly", "Rotten Eggs", "Outhouse", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!" ]
+    var achievementValues: [String] = ["", "shake 1", "shake 10", "shake 100", "shake 1000", "feed 1", "feed 10", "feed 100", "feed 1000", "bathroom 1",  "bathroom 10",  "bathroom 100",  "bathroom 1000", "pet 1", "pet 10", "pet 100", "pet 1000" ]
     var doneAchievements: [Int] = []
     
     let counters = NSUserDefaults.standardUserDefaults()
