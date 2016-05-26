@@ -26,6 +26,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
 
     var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me"]
     var achievementValues: [String] = ["", "shake 1", "shake 10"]
+    var doneAchievements: [Int] = []
     
     let counters = NSUserDefaults.standardUserDefaults()
     var shakenCount : Int = 0
@@ -51,13 +52,15 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.achievementsTable.tableFooterView = UIView()
         
 //        setupAchievementsTable()
-        parseAchievementValues()
+        
         
         shakenCount = initializeCounters("shakenCount")
         petCount = initializeCounters("petCount")
         bathroomCount = initializeCounters("bathroomCount")
         feedCount = initializeCounters("feedCount")
         
+        parseAchievementValues()
+        achievementsTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,12 +122,21 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             cell.textLabel?.textColor = UIColor(netHex:0x22A5D3)
             cell.textLabel?.font = UIFont.boldSystemFontOfSize(20.0)
         } else {
-            let item = "?"
-            cell.textLabel?.text = item
-            cell.textLabel?.textAlignment = NSTextAlignment.Center
-            cell.backgroundColor = UIColor.grayColor()
-            cell.textLabel?.textColor = UIColor.whiteColor()
-//            print("row: \(indexPath.row), title: \(cell.textLabel!.text!)")
+            if (doneAchievements.contains(indexPath.row)) {
+                let item = achievementNames[indexPath.row]
+                cell.textLabel?.text = item
+                cell.textLabel?.textAlignment = NSTextAlignment.Center
+                cell.backgroundColor = UIColor(netHex:0x22A5D3)
+                cell.textLabel?.textColor = UIColor.whiteColor()
+                cell.textLabel?.font = UIFont.boldSystemFontOfSize(20.0)
+            } else {
+                let item = "?"
+                cell.textLabel?.text = item
+                cell.textLabel?.textAlignment = NSTextAlignment.Center
+                cell.backgroundColor = UIColor.grayColor()
+                cell.textLabel?.textColor = UIColor.whiteColor()
+//              print("row: \(indexPath.row), title: \(cell.textLabel!.text!)")
+            }
         }
         if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
             cell.layoutMargins = UIEdgeInsetsZero
@@ -143,20 +155,20 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             let action = valueArr[0]
             let req = Int(valueArr[1])
             if (action == "shake") {
-                if (req >= shakenCount) {
-                    print(achievementNames[count-1])
+                if (req <= shakenCount) {
+                    doneAchievements.append(count-1)
                 }
             } else if (action == "pet") {
-                if (req >= petCount) {
-                    print(achievementNames[count-1])
+                if (req <= petCount) {
+                    doneAchievements.append(count-1)
                 }
             } else if (action == "feed") {
-                if (req >= feedCount) {
-                    print(achievementNames[count-1])
+                if (req <= feedCount) {
+                    doneAchievements.append(count-1)
                 }
             } else if (action == "bathroom") {
-                if (req >= bathroomCount) {
-                    print(achievementNames[count-1])
+                if (req <= bathroomCount) {
+                    doneAchievements.append(count-1)
                 }
             }
         }
