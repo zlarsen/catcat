@@ -34,17 +34,19 @@ extension String {
     }
 }
 
-class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FlurryAdBannerDelegate {
 
+    let adBanner =  FlurryAdBanner(space: "ADSPACE")
+    
     var achievementNames: [String] = []
     var achievementValues: [String] = []
     var doneAchievements: [Int] = []
     
     let counters = NSUserDefaults.standardUserDefaults()
-    var shakenCount : Int = 0
-    var petCount : Int = 0
-    var feedCount : Int = 0
-    var bathroomCount : Int = 0
+//    var shakenCount : Int = 0
+//    var petCount : Int = 0
+//    var feedCount : Int = 0
+//    var bathroomCount : Int = 0
 
     
     @IBOutlet var achievementsTable: UITableView!
@@ -63,10 +65,10 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.achievementsTable.tableFooterView = UIView()
         self.achievementsTable.bounces = false
         
-        shakenCount = initializeCounters("shakenCount")
-        petCount = initializeCounters("petCount")
-        bathroomCount = initializeCounters("bathroomCount")
-        feedCount = initializeCounters("feedCount")
+//        shakenCount = initializeCounters("shakenCount")
+//        petCount = initializeCounters("petCount")
+//        bathroomCount = initializeCounters("bathroomCount")
+//        feedCount = initializeCounters("feedCount")
         
         let dA = initializeStoredArrays("doneAchievements") as! [Int]
         if (dA.count >= doneAchievements.count) {
@@ -82,6 +84,12 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         }
     
         achievementsTable.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        adBanner.adDelegate = self
+        adBanner.fetchAdForFrame(self.view.frame)
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,16 +160,16 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         return cell
     }
 
-    func initializeCounters(name: String) -> Int {
-        let countVal = counters.integerForKey(name)
-        if (countVal == 0){
-            counters.setInteger(0, forKey: name)
-            print("\(name): \(countVal)")
-        } else {
-            print("\(name): \(countVal)")
-        }
-        return countVal
-    }
+//    func initializeCounters(name: String) -> Int {
+//        let countVal = counters.integerForKey(name)
+//        if (countVal == 0){
+//            counters.setInteger(0, forKey: name)
+//            print("\(name): \(countVal)")
+//        } else {
+//            print("\(name): \(countVal)")
+//        }
+//        return countVal
+//    }
     
     func initializeStoredArrays(name: String) -> Array <AnyObject> {
         var val: [AnyObject] = []
@@ -179,5 +187,14 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             print("The array never assigned")
         }
         return val
+    }
+    
+    func adBannerDidFetchAd(bannerAd: FlurryAdBanner!) {
+        // Received Ad
+        adBanner.displayAdInView(self.view, viewControllerForPresentation: self);
+    }
+    
+    func adBannerDidRender(bannerAd: FlurryAdBanner!) {
+        print("Money, money, money!")
     }
 }
