@@ -61,6 +61,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.view.addGestureRecognizer(swipeRight)
         
         self.achievementsTable.tableFooterView = UIView()
+        self.achievementsTable.bounces = false
         
         shakenCount = initializeCounters("shakenCount")
         petCount = initializeCounters("petCount")
