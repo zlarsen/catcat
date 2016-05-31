@@ -22,10 +22,22 @@ extension UIColor {
     }
 }
 
+extension String {
+    var first: String {
+        return String(characters.prefix(1))
+    }
+    var last: String {
+        return String(characters.suffix(1))
+    }
+    var uppercaseFirst: String {
+        return first.uppercaseString + String(characters.dropFirst())
+    }
+}
+
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't shake me", "Internal Slushie", "Dead Cat", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Stinky", "Smelly", "Rotten Eggs", "Outhouse", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!" ]
-    var achievementValues: [String] = ["", "shake 1", "shake 10", "shake 100", "shake 1000", "feed 1", "feed 10", "feed 100", "feed 1000", "bathroom 1",  "bathroom 10",  "bathroom 100",  "bathroom 1000", "pet 1", "pet 10", "pet 100", "pet 1000" ]
+    var achievementNames: [String] = []
+    var achievementValues: [String] = []
     var doneAchievements: [Int] = []
     
     let counters = NSUserDefaults.standardUserDefaults()
@@ -39,7 +51,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(AchievementsViewController.respondToSwipeGesture(_:)))
         swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
@@ -51,21 +62,29 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.achievementsTable.tableFooterView = UIView()
         
-//        setupAchievementsTable()
-        
-        
         shakenCount = initializeCounters("shakenCount")
         petCount = initializeCounters("petCount")
         bathroomCount = initializeCounters("bathroomCount")
         feedCount = initializeCounters("feedCount")
         
-        parseAchievementValues()
+        let dA = initializeStoredArrays("doneAchievements") as! [Int]
+        if (dA.count >= doneAchievements.count) {
+            doneAchievements = dA
+        }
+        let aV = initializeStoredArrays("achievementValues") as! [String]
+        if (aV.count >= achievementValues.count) {
+            achievementValues = aV
+        }
+        let aN = initializeStoredArrays("achievementNames") as! [String]
+        if (aN.count >= achievementNames.count) {
+            achievementNames = aN
+        }
+    
         achievementsTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -91,18 +110,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         self.presentViewController(resultViewController, animated:true, completion:nil)
     }
     
-    func setupAchievementsTable(row: Int) {
-        achievementsTable.beginUpdates()
-//        tableView(achievementsTable, cellForRowAtIndexPath: NSIndexPath)
-        print("*******************2")
-        achievementsTable.insertRowsAtIndexPaths([
-            NSIndexPath(forRow: achievementNames.count-1, inSection: 0)
-            ], withRowAnimation: .Automatic)
-        print("*******************3")
-        achievementsTable.endUpdates()
-        print("hello")
-    }
-    
     func numberOfSectionsInTableView(achievementsTable: UITableView) -> Int {
         return 1
     }
@@ -120,7 +127,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             cell.textLabel?.textAlignment = NSTextAlignment.Center
             cell.backgroundColor = UIColor.whiteColor()
             cell.textLabel?.textColor = UIColor(netHex:0x22A5D3)
-            cell.textLabel?.font = UIFont.boldSystemFontOfSize(20.0)
+            cell.textLabel?.font = UIFont.boldSystemFontOfSize(22.0)
         } else {
             if (doneAchievements.contains(indexPath.row)) {
                 let item = achievementNames[indexPath.row]
@@ -143,37 +150,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         }
         return cell
     }
-    
-    func parseAchievementValues() {
-        var count = 0
-        for value in achievementValues {
-            count += 1
-            if (value == "") {
-                continue
-            }
-            let valueArr = value.characters.split{$0 == " "}.map(String.init)
-            let action = valueArr[0]
-            let req = Int(valueArr[1])
-            if (action == "shake") {
-                if (req <= shakenCount) {
-                    doneAchievements.append(count-1)
-                }
-            } else if (action == "pet") {
-                if (req <= petCount) {
-                    doneAchievements.append(count-1)
-                }
-            } else if (action == "feed") {
-                if (req <= feedCount) {
-                    doneAchievements.append(count-1)
-                }
-            } else if (action == "bathroom") {
-                if (req <= bathroomCount) {
-                    doneAchievements.append(count-1)
-                }
-            }
-        }
-        
-    }
 
     func initializeCounters(name: String) -> Int {
         let countVal = counters.integerForKey(name)
@@ -184,5 +160,23 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             print("\(name): \(countVal)")
         }
         return countVal
+    }
+    
+    func initializeStoredArrays(name: String) -> Array <AnyObject> {
+        var val: [AnyObject] = []
+        if counters.arrayForKey(name) != nil {
+            val = counters.arrayForKey(name)!
+            print("\(name) count: \(val.count)")
+        } else {
+            if (name == "achievementValues") {
+                counters.setObject(achievementValues, forKey: name)
+            } else if (name == "achievementNames") {
+                counters.setObject(achievementNames, forKey: name)
+            } else if (name == "doneAchievements") {
+                counters.setObject(doneAchievements, forKey: name)
+            }
+            print("The array never assigned")
+        }
+        return val
     }
 }

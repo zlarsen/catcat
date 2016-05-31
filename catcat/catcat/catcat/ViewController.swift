@@ -24,6 +24,10 @@ class ViewController: UIViewController {
 
     var shakenSoundEffect = AVAudioPlayer()
     
+    var doneAchievements: [Int] = []
+    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't Shake Me", "Internal Slushie", "Dead Cat", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Stinky", "Smelly", "Rotten Eggs", "Outhouse", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!" ]
+    var achievementValues: [String] = ["", "shake 1", "shake 10", "shake 100", "shake 1000", "feed 1", "feed 10", "feed 100", "feed 1000", "bathroom 1",  "bathroom 10",  "bathroom 100",  "bathroom 1000", "pet 1", "pet 10", "pet 100", "pet 1000" ]
+    
     var shakenCount : Int = 0
     var petCount : Int = 0
     var feedCount : Int = 0
@@ -76,7 +80,25 @@ class ViewController: UIViewController {
         petCount = initializeCounters("petCount")
         bathroomCount = initializeCounters("bathroomCount")
         feedCount = initializeCounters("feedCount")
+    
+        let dA = initializeStoredArrays("doneAchievements") as! [Int]
+        if (dA.count >= doneAchievements.count) {
+            doneAchievements = dA
+        }
+        let aV = initializeStoredArrays("achievementValues") as! [String]
+        if (aV.count >= achievementValues.count) {
+            achievementValues = aV
+        }
+        let aN = initializeStoredArrays("achievementNames") as! [String]
+        if (aN.count >= achievementNames.count) {
+            achievementNames = aN
+        }
         
+        parseAchievementValues()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+//        displayAlertView(1)
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,6 +117,7 @@ class ViewController: UIViewController {
             
             shakenCount += 1
             counters.setValue(shakenCount, forKey: "shakenCount")
+            parseAchievementValues()
         }
     }
     
@@ -105,6 +128,7 @@ class ViewController: UIViewController {
             playSound(catSounds["feed"]!)
             feedCount += 1
             counters.setValue(feedCount, forKey: "feedCount")
+            parseAchievementValues()
     
         }   else if (taps == 2) {
             // bathroom
@@ -112,6 +136,7 @@ class ViewController: UIViewController {
             playSound(catSounds["bathroom"]!)
             bathroomCount += 1
             counters.setValue(bathroomCount, forKey: "bathroomCount")
+            parseAchievementValues()
         }
     }
     
@@ -137,6 +162,7 @@ class ViewController: UIViewController {
         playSound(catSounds["pet"]!)
         petCount += 1
         counters.setValue(petCount, forKey: "petCount")
+        parseAchievementValues()
     }
 
     func playSound(soundName: String){
@@ -186,6 +212,75 @@ class ViewController: UIViewController {
             print("\(name): \(countVal)")
         }
         return countVal
+    }
+    
+    func initializeStoredArrays(name: String) -> Array <AnyObject> {
+        var val: [AnyObject] = []
+        if counters.arrayForKey(name) != nil {
+            val = counters.arrayForKey(name)!
+            print("\(name) count: \(val.count)")
+        } else {
+            if (name == "achievementValues") {
+                counters.setObject(achievementValues, forKey: name)
+            } else if (name == "achievementNames") {
+                counters.setObject(achievementNames, forKey: name)
+            } else if (name == "doneAchievements") {
+                counters.setObject(doneAchievements, forKey: name)
+            }
+            print("The array never assigned")
+        }
+        return val
+    }
+    
+    func parseAchievementValues() {
+        var count = 0
+        for value in achievementValues {
+            var valid = false
+            count += 1
+            if (value == "") {
+                continue
+            }
+            let valueArr = value.characters.split{$0 == " "}.map(String.init)
+            let action = valueArr[0]
+            let req = Int(valueArr[1])
+            if (action == "shake") {
+                if (req <= shakenCount) {
+                    valid = true
+                }
+            } else if (action == "pet") {
+                if (req <= petCount) {
+                    valid = true
+                }
+            } else if (action == "feed") {
+                if (req <= feedCount) {
+                    valid = true
+                }
+            } else if (action == "bathroom") {
+                if (req <= bathroomCount) {
+                    valid = true
+                }
+            }
+            if (valid == true) {
+                if (!doneAchievements.contains(count-1)) {
+                    doneAchievements.append(count-1)
+                    counters.setObject(doneAchievements, forKey: "doneAchievements")
+                    displayAlertView(count-1)
+                }
+                valid = false
+            }
+        }
+        
+    }
+    
+    func displayAlertView(index: Int) {
+        let value = achievementValues[index]
+        let valueArr = value.characters.split{$0 == " "}.map(String.init)
+        let message = valueArr[0].uppercaseFirst + " x " + valueArr[1]
+        let alertController = UIAlertController(title: achievementNames[index], message:
+            message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }
 
