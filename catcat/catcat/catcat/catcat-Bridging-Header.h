@@ -11,5 +11,6 @@
 
 #import "Flurry.h"
 #import "FlurryAdBanner.h"
+#import "FlurryAdBannerDelegate.h"
 
 #endif /* catcat_Bridging_Header_h */

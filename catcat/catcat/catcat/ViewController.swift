@@ -22,7 +22,7 @@ var catSounds: [String: String] = ["mad": "CatScream.wav", "pet": "catpurr.wav",
 
 class ViewController: UIViewController {
 
-    var shakenSoundEffect = AVAudioPlayer()
+    var soundPlayer = AVAudioPlayer()
     
     var doneAchievements: [Int] = []
     var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't Shake Me", "Internal Slushie", "Dead Cat", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Stinky", "Smelly", "Rotten Eggs", "Outhouse", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!" ]
@@ -110,6 +110,10 @@ class ViewController: UIViewController {
         return true
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             print("shaken")
@@ -166,12 +170,14 @@ class ViewController: UIViewController {
     }
 
     func playSound(soundName: String){
+        
         let path = NSBundle.mainBundle().pathForResource(soundName, ofType:nil)!
         let url = NSURL(fileURLWithPath: path)
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
-            shakenSoundEffect = sound
-            sound.play()
+            soundPlayer = sound
+            soundPlayer.stop()
+            soundPlayer.play()
         } catch {
             print("Couldn't load \(soundName)")
         }
@@ -185,7 +191,7 @@ class ViewController: UIViewController {
                 
             case UISwipeGestureRecognizerDirection.Right:
                 
-                print("Swiped right")
+//                print("Swiped right")
                 
                 //change view controllers
                 
@@ -218,7 +224,7 @@ class ViewController: UIViewController {
         var val: [AnyObject] = []
         if counters.arrayForKey(name) != nil {
             val = counters.arrayForKey(name)!
-            print("\(name) count: \(val.count)")
+//            print("\(name) count: \(val.count)")
         } else {
             if (name == "achievementValues") {
                 counters.setObject(achievementValues, forKey: name)

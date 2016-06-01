@@ -4,9 +4,10 @@
 //
 //  Created by Zach Larsen on 5/22/16.
 //  Copyright © 2016 Zach Larsen. All rights reserved.
-//
+//  36688A76-7D36-44F4-9201-C00231E842A6 Chelsea's iPhone
 
 import UIKit
+import AdSupport
 
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {
@@ -36,18 +37,13 @@ extension String {
 
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FlurryAdBannerDelegate {
 
-    let adBanner =  FlurryAdBanner(space: "ADSPACE")
+    let adBanner =  FlurryAdBanner(space: "CATCATAD")
     
     var achievementNames: [String] = []
     var achievementValues: [String] = []
     var doneAchievements: [Int] = []
     
     let counters = NSUserDefaults.standardUserDefaults()
-//    var shakenCount : Int = 0
-//    var petCount : Int = 0
-//    var feedCount : Int = 0
-//    var bathroomCount : Int = 0
-
     
     @IBOutlet var achievementsTable: UITableView!
     
@@ -64,11 +60,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.achievementsTable.tableFooterView = UIView()
         self.achievementsTable.bounces = false
-        
-//        shakenCount = initializeCounters("shakenCount")
-//        petCount = initializeCounters("petCount")
-//        bathroomCount = initializeCounters("bathroomCount")
-//        feedCount = initializeCounters("feedCount")
         
         let dA = initializeStoredArrays("doneAchievements") as! [Int]
         if (dA.count >= doneAchievements.count) {
@@ -90,6 +81,10 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidAppear(animated)
         adBanner.adDelegate = self
         adBanner.fetchAdForFrame(self.view.frame)
+
+    }
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     override func didReceiveMemoryWarning() {
@@ -151,7 +146,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
                 cell.textLabel?.textAlignment = NSTextAlignment.Center
                 cell.backgroundColor = UIColor.grayColor()
                 cell.textLabel?.textColor = UIColor.whiteColor()
-//              print("row: \(indexPath.row), title: \(cell.textLabel!.text!)")
             }
         }
         if(cell.respondsToSelector(Selector("setLayoutMargins:"))){
@@ -159,23 +153,12 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         }
         return cell
     }
-
-//    func initializeCounters(name: String) -> Int {
-//        let countVal = counters.integerForKey(name)
-//        if (countVal == 0){
-//            counters.setInteger(0, forKey: name)
-//            print("\(name): \(countVal)")
-//        } else {
-//            print("\(name): \(countVal)")
-//        }
-//        return countVal
-//    }
     
     func initializeStoredArrays(name: String) -> Array <AnyObject> {
         var val: [AnyObject] = []
         if counters.arrayForKey(name) != nil {
             val = counters.arrayForKey(name)!
-            print("\(name) count: \(val.count)")
+//            print("\(name) count: \(val.count)")
         } else {
             if (name == "achievementValues") {
                 counters.setObject(achievementValues, forKey: name)
@@ -191,10 +174,6 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     
     func adBannerDidFetchAd(bannerAd: FlurryAdBanner!) {
         // Received Ad
-        adBanner.displayAdInView(self.view, viewControllerForPresentation: self);
-    }
-    
-    func adBannerDidRender(bannerAd: FlurryAdBanner!) {
-        print("Money, money, money!")
+        adBanner.displayAdInView(self.view, viewControllerForPresentation: self)
     }
 }
