@@ -176,4 +176,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         // Received Ad
         adBanner.displayAdInView(self.view, viewControllerForPresentation: self)
     }
+    func adBannerDidRender(bannerAd: FlurryAdBanner!) {
+        // For when your ad renders. Nice to check to make sure your ad is working
+    }
 }
