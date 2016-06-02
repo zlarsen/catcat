@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         Flurry.startSession("QSPG4PYCCBX8FMD294XN")
-        Flurry.logEvent("Started Application")
         // Your code...
         return true
     }

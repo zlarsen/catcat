@@ -25,8 +25,8 @@ class ViewController: UIViewController {
     var soundPlayer = AVAudioPlayer()
     
     var doneAchievements: [Int] = []
-    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't Shake Me", "Internal Slushie", "Dead Cat", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Stinky", "Smelly", "Rotten Eggs", "Outhouse", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!" ]
-    var achievementValues: [String] = ["", "shake 1", "shake 10", "shake 100", "shake 1000", "feed 1", "feed 10", "feed 100", "feed 1000", "bathroom 1",  "bathroom 10",  "bathroom 100",  "bathroom 1000", "pet 1", "pet 10", "pet 100", "pet 1000" ]
+    var achievementNames: [String] = ["Achievements", "Shaken Not Stirred", "Don't Shake Me", "Internal Slushie", "Dead Cat", "Zombie Cat", "Kitty Litter Monster", "Puke For Brains", "Fed Cat", "Over Fed Cat", "Fat Cat", "Garfield", "Cathood Obesity", "Showing Love With Food", "King of the Jungle", "Smelly Cat", "Smelly Cat", "What Are", "They Feeding You?", "Smelly Cat", "Smelly Cat", "It's Not Your Fault", "Purrfect", "Kitten Be Better", "Sleep Kitty", "WOW 1000?!!", "Get a Job!", "Seriously?!", "Go Outside!", "Nice Work!", "Are You Ready", "For A Song?", "Here Goes", "Nothing", "Soft", "Kitty", "Warm", "Kitty", "Little", "Ball", "Of", "Fur", "Happy", "Kitty", "Sleepy", "Kitty", "Purr", "Purr", "Purr" ]
+    var achievementValues: [String] = ["", "shake 1", "shake 10", "shake 100", "shake 1000", "shake 10000", "shake 100000", "shake 1000000", "feed 1", "feed 10", "feed 100", "feed 1000", "feed 10000", "feed 100000", "feed 1000000", "bathroom 1",  "bathroom 10",  "bathroom 100",  "bathroom 1000", "bathroom 10000", "bathroom 100000", "bathroom 1000000", "pet 1", "pet 10", "pet 100", "pet 1000", "pet 10000", "pet 100000", "pet 1000000", "all 2", "all 4", "all 8", "all 16", "all 32", "all 64", "all 128", "all 256", "all 512", "all 1024", "all 2048", "all 4096", "all 8192", "all 16384", "all 32768", "all 65536", "all 131072", "all 262144", "all 524288", "all 1048576" ]
     
     var shakenCount : Int = 0
     var petCount : Int = 0
@@ -116,9 +116,7 @@ class ViewController: UIViewController {
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
-            print("shaken")
             playSound(catSounds["mad"]!)
-            
             shakenCount += 1
             counters.setValue(shakenCount, forKey: "shakenCount")
             parseAchievementValues()
@@ -128,7 +126,6 @@ class ViewController: UIViewController {
     func tapRecognizer(taps: Int){
         if (taps == 1) {
             // feed
-            print("one hop")
             playSound(catSounds["feed"]!)
             feedCount += 1
             counters.setValue(feedCount, forKey: "feedCount")
@@ -136,7 +133,6 @@ class ViewController: UIViewController {
     
         }   else if (taps == 2) {
             // bathroom
-            print("two hops this time")
             playSound(catSounds["bathroom"]!)
             bathroomCount += 1
             counters.setValue(bathroomCount, forKey: "bathroomCount")
@@ -146,7 +142,6 @@ class ViewController: UIViewController {
     
     func petCat(direction: String) {
         if (direction == "Up" && !furUp) {
-            print(PetDirection.Up)
             furUp = true
             let toImage = UIImage(named:"goodfurRev.png")
             UIView.transitionWithView(self.catSkin,
@@ -155,7 +150,6 @@ class ViewController: UIViewController {
                                       animations: { self.catSkin.image = toImage },
                                       completion: nil)
         } else if (direction == "Down" && furUp) {
-            print(PetDirection.Down)
             furUp = false
             let toImage = UIImage(named:"goodfur.png")
             UIView.transitionWithView(self.catSkin,
@@ -191,8 +185,6 @@ class ViewController: UIViewController {
                 
             case UISwipeGestureRecognizerDirection.Right:
                 
-//                print("Swiped right")
-                
                 //change view controllers
                 
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -213,9 +205,7 @@ class ViewController: UIViewController {
         let countVal = counters.integerForKey(name)
         if (countVal == 0){
             counters.setInteger(0, forKey: name)
-            print("\(name): \(countVal)")
         } else {
-            print("\(name): \(countVal)")
         }
         return countVal
     }
@@ -224,7 +214,6 @@ class ViewController: UIViewController {
         var val: [AnyObject] = []
         if counters.arrayForKey(name) != nil {
             val = counters.arrayForKey(name)!
-//            print("\(name) count: \(val.count)")
         } else {
             if (name == "achievementValues") {
                 counters.setObject(achievementValues, forKey: name)
@@ -233,7 +222,6 @@ class ViewController: UIViewController {
             } else if (name == "doneAchievements") {
                 counters.setObject(doneAchievements, forKey: name)
             }
-            print("The array never assigned")
         }
         return val
     }
@@ -263,6 +251,10 @@ class ViewController: UIViewController {
                 }
             } else if (action == "bathroom") {
                 if (req <= bathroomCount) {
+                    valid = true
+                }
+            } else if (action == "all") {
+                if (req <= bathroomCount && req <= feedCount && req <= petCount && req <= shakenCount) {
                     valid = true
                 }
             }
