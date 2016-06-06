@@ -29,7 +29,6 @@
 		9209AB371CF265F200F1240F /* milk.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 9209AB361CF265F200F1240F /* milk.m4a */; };
 		9225640A1CFE39A400CA74B9 /* FlurryEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 922563F21CFE39A400CA74B9 /* FlurryEmpty.m */; };
 		9225640B1CFE39A400CA74B9 /* libFlurry_7.6.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 922563F41CFE39A400CA74B9 /* libFlurry_7.6.3.a */; };
-		9225640C1CFE39A400CA74B9 /* libFlurryWatch_7.6.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 922563F51CFE39A400CA74B9 /* libFlurryWatch_7.6.3.a */; };
 		9225640D1CFE39A400CA74B9 /* FlurryAdsEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 922564021CFE39A400CA74B9 /* FlurryAdsEmpty.m */; };
 		9225640E1CFE39A400CA74B9 /* libFlurryAds_7.6.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 922564031CFE39A400CA74B9 /* libFlurryAds_7.6.3.a */; };
 		922564101CFE39FD00CA74B9 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9225640F1CFE39FD00CA74B9 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -86,7 +85,6 @@
 		922563F21CFE39A400CA74B9 /* FlurryEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryEmpty.m; sourceTree = "<group>"; };
 		922563F31CFE39A400CA74B9 /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
 		922563F41CFE39A400CA74B9 /* libFlurry_7.6.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.6.3.a; sourceTree = "<group>"; };
-		922563F51CFE39A400CA74B9 /* libFlurryWatch_7.6.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryWatch_7.6.3.a; sourceTree = "<group>"; };
 		922563F81CFE39A400CA74B9 /* FlurryAdBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdBanner.h; sourceTree = "<group>"; };
 		922563F91CFE39A400CA74B9 /* FlurryAdBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdBannerDelegate.h; sourceTree = "<group>"; };
 		922563FB1CFE39A400CA74B9 /* FlurryAdInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdInterstitial.h; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				922564141CFE3A4800CA74B9 /* CoreGraphics.framework in Frameworks */,
 				922564121CFE3A3900CA74B9 /* AVFoundation.framework in Frameworks */,
 				922564101CFE39FD00CA74B9 /* AdSupport.framework in Frameworks */,
-				9225640C1CFE39A400CA74B9 /* libFlurryWatch_7.6.3.a in Frameworks */,
 				9225640B1CFE39A400CA74B9 /* libFlurry_7.6.3.a in Frameworks */,
 				9225640E1CFE39A400CA74B9 /* libFlurryAds_7.6.3.a in Frameworks */,
 			);
@@ -233,7 +230,6 @@
 				922563F21CFE39A400CA74B9 /* FlurryEmpty.m */,
 				922563F31CFE39A400CA74B9 /* FlurryWatch.h */,
 				922563F41CFE39A400CA74B9 /* libFlurry_7.6.3.a */,
-				922563F51CFE39A400CA74B9 /* libFlurryWatch_7.6.3.a */,
 			);
 			path = Flurry;
 			sourceTree = "<group>";

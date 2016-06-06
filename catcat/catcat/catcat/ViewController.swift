@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreData
+import AudioToolbox
 
 enum PetDirection : Int {
     case Up = 1
@@ -114,7 +115,7 @@ class ViewController: UIViewController {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
         if motion == .MotionShake {
             playSound(catSounds["mad"]!)
             shakenCount += 1
@@ -157,6 +158,7 @@ class ViewController: UIViewController {
                                       options: .TransitionCrossDissolve,
                                       animations: { self.catSkin.image = toImage },
                                       completion: nil)        }
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         playSound(catSounds["pet"]!)
         petCount += 1
         counters.setValue(petCount, forKey: "petCount")

@@ -4,7 +4,6 @@
 //
 //  Created by Zach Larsen on 5/22/16.
 //  Copyright © 2016 Zach Larsen. All rights reserved.
-//  36688A76-7D36-44F4-9201-C00231E842A6 Chelsea's iPhone
 
 import UIKit
 import AdSupport
